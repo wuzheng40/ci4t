@@ -108,7 +108,7 @@
 							  	method : 'GET',
 							  	dataType : 'json'
 							}).done(function(data) {
-								if (data.code == 1) {s
+								if (data.code == 1) {
 									_form.form('reset')
 									_formdlg.modal('show').find('div[name=yes]').on('click',function(){
 										_form.submit();
@@ -116,7 +116,7 @@
 
 									$('#Id').val(data.data.Id);
 									$('#Username').val(data.data.Username);
-									$('#mail').val(data.data.Email);
+									$('#Email').val(data.data.Email);
 									$('#Password').val(data.data.Password);
 									$('#Auth').val(data.data.Auth);
 									$('#Status').val(data.data.Status);
@@ -127,9 +127,6 @@
 							break;
 						case 'delete':
 							var id = $(this).data('id');
-
-							var m = initdialog('yondialog', '删除', '<p>确定要删除吗？</p>', '<div class="ui negative button" name="no">否</div><div class="ui green right labeled icon button" name="yes">是<i class="checkmark icon"></i></div>').modal('show');;
-							var y = m.find('div[name=yes]') , n = m.find('div[name=no]'), c = m.find('div[class=content]');
 
 							_deletedlg.modal('show').find('div[name=yes]').on('click',function(){
 								_deletedlg.modal('duration',0).modal('hide');
