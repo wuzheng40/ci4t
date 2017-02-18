@@ -11,7 +11,6 @@
 			var _messagedlg, _formdlg, _form, _table;
 
 			$().ready(function(){
-				//$('#message').modal('show');
 				//初始化控件
 				_messagedlg = $('#messagedlg');
 				_formdlg = $('#coudialog');
@@ -62,7 +61,6 @@
 									}else{
 										_messagedlg.find('div').html('<i class="remove icon red"></i>失败');
 									}
-									_form.form('reset')
 								});
 							}else{
 								$.ajax({
@@ -81,7 +79,6 @@
 										_messagedlg.find('div').html('<i class="checkmark icon green"></i>成功');
 									}else{
 										_messagedlg.find('div').html('<i class="remove icon red"></i>失败');
-										_form.form('reset')
 									}
 								});
 							}
@@ -95,8 +92,8 @@
 					var method = $(this).data('method');
 					switch(method){
 						case 'create':
-							_form.form('reset')
-							_formdlg.modal('show').find('div[name=yes]').on('click',function(){
+							_form.form('reset');
+							_formdlg.modal('show').find('div[name=yes]').one('click',function(){
 								_form.submit();
 							});
 							break;
@@ -109,8 +106,8 @@
 							  	dataType : 'json'
 							}).done(function(data) {
 								if (data.code == 1) {
-									_form.form('reset')
-									_formdlg.modal('show').find('div[name=yes]').on('click',function(){
+									_form.form('reset');
+									_formdlg.modal('show').find('div[name=yes]').one('click',function(){
 										_form.submit();
 									});
 
@@ -128,7 +125,7 @@
 						case 'delete':
 							var id = $(this).data('id');
 
-							_deletedlg.modal('show').find('div[name=yes]').on('click',function(){
+							_deletedlg.modal('show').find('div[name=yes]').one('click',function(){
 								_deletedlg.modal('duration',0).modal('hide');
 								_messagedlg.modal('show').find('div').html('<i class="wait icon blue"></i>删除中');
 								$.ajax({
@@ -148,81 +145,6 @@
 					}
 				});
 			});
-
-			function initdialog(id, header, content, actions){
-				if(id){
-					var m = $('#' + id);
-					if(header){
-						m.find('div[class=header]').html(header);
-					}
-					if(content){
-						m.find('div[class=content]').html(content);
-					}
-					if(actions){
-						m.find('div[class=actions]').html(actions);
-					}
-					return m;
-				}else{
-					return false;
-				}
-			}
-
-			function initform(){
-				var m = $('#couform');
-				m.form('reset');
-
-				return m;
-			}
-
-			function submitform(event, fields){
-				var m = $('#coudialog');
-				var y = m.find('div[name=yes]') , n = m.find('div[name=no]'), c = m.find('div[class=content]');
-				var f = $('#couform');
-				var id = isNaN($('#Id').val()) ? 0 : parseInt($('#Id').val());
-
-				y.addClass('loading');
-				n.addClass('disabled');
-				if (id == 0){
-					$.ajax({
-					  	url: '<?php echo current_url();?>/',								  	
-					  	method : 'POST',
-					  	dataType : 'json',
-					  	data: f.serializeArray()
-					}).done(function(data) {
-						if (data.code == 1) {
-							y.removeClass('loading labeled').html('成功').off('click').addClass('positive');
-							n.remove();
-						}else{
-							y.removeClass('loading labeled').html('失败').off('click').addClass('red');
-							n.remove();
-						}
-						initform();
-					});
-				}else{
-					$.ajax({
-					  	url: '<?php echo current_url();?>/' + id,								  	
-					  	method : 'PUT',
-					  	dataType : 'json',
-					  	data: f.serializeArray()
-					}).done(function(data) {
-						if (data.code == 1) {
-							y.removeClass('loading labeled').html('成功').off('click').addClass('positive');
-							n.remove();
-
-							$('#Username_' + id).html($('#Username').val());
-							$('#Email_'+ id).html($('#Email').val());
-							$('#Password_'+ id).html($('#Password').val());
-							$('#Auth_'+ id).html($('#Auth').val());
-							$('#Status_'+ id).html($('#Status').val());
-						}else{
-							y.removeClass('loading labeled').html('失败').off('click').addClass('red');
-							n.remove();
-						}
-						initform();
-					});
-				}
-				return false;
-			}
 		</script>
 	</head>
 	<body style="margin:0; padding:0">
