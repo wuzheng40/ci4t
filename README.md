@@ -2,6 +2,6 @@
 
 # Semantic UI
 
-# Codeigniter 4 **
+# Codeigniter 4
 
-# PHP 7.* **
+# PHP 7.*
