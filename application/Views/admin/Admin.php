@@ -8,7 +8,7 @@
 	    <title>Admin</title>
 		<?= view('admin/Asset'); ?>
 		<script>
-			var _messagedlg, _formdlg, _form, _table;
+			var _messagedlg, _formdlg, _form, _table, _searchform;
 
 			$().ready(function(){
 				//初始化控件
@@ -17,6 +17,7 @@
 				_deletedlg = $('#deletedlg');
 				_form = $('#couform');
 				_table = $('#table');
+				_searchform = $('#searchform');
 				
 				//初始化表单
 				$('#couform').form({
@@ -142,6 +143,9 @@
 								});
 							});
 							break;
+						case 'search':
+							_searchform.submit();
+							break;
 					}
 				});
 			});
@@ -156,8 +160,37 @@
 			    <div class="ui twelve wide column">
 				    <table class="ui compact celled definition table">
 				    	<tfoot class="full-width">
+				    		<tr>
+						      	<th>
+						      		<form class="ui tiny form" id="searchform" action="<?php echo current_url();?>" method="get">
+						      			<div class="fields">
+								      		<div class="three wide field">
+								                <input type="text" name="search_Id" placeholder="Id">
+								            </div>
+								      		<div class="three wide field">
+								                <input type="text" name="search_Username" placeholder="Username">
+								            </div>
+								      		<div class="three wide field">
+								                <input type="text" name="search_Email" placeholder="Email">
+								            </div>
+								      		<div class="three wide field">
+								                <input type="text" name="search_Password" placeholder="Password">
+								            </div>
+								      		<div class="three wide field">
+								                <input type="text" name="search_Auth" placeholder="Auth">
+								            </div>
+								      		<div class="three wide field">
+								                <input type="text" name="search_Status" placeholder="Status">
+								            </div>
+						            	</div>
+						            </form>
+						      	</th>
+						    </tr>
 						    <tr>
 						      	<th>
+						      		<button class="ui left small labeled icon compact button" data-id="0" data-method="search">
+						          		<i class="find icon"></i>查询
+						        	</button>
 						        	<button class="ui left small primary labeled icon compact button" data-id="0" data-method="create">
 						          		<i class="plus icon"></i>添加
 						        	</button>
@@ -171,7 +204,7 @@
 					  	<thead>
 						    <tr>
 							    <th>Id</th>
-							    <th>Name</th>
+							    <th>Username</th>
 							    <th>Email</th>
 							    <th>Password</th>
 							    <th>Auth</th>

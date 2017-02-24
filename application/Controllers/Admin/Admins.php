@@ -2,7 +2,6 @@
 namespace App\Controllers\Admin;
 
 use App\Models\AdminsModel;
-use App\Entities\Admins as ads;
 
 class Admins extends \CodeIgniter\Controller
 {	
@@ -10,7 +9,7 @@ class Admins extends \CodeIgniter\Controller
 	 * pagesize is paginate size
 	 * Admins is model data
 	 */
-	private $pagesize = 10;
+	private $pagesize = 5;
 	private $Admins;
 
 	public function __construct()
@@ -28,10 +27,39 @@ class Admins extends \CodeIgniter\Controller
 	 * List all
 	 */
 	public function listAll()
-	{	
-		//$returndata['data'] = $this->Admins->where(['Auth'  => 'Admin','Status' => 1])->paginate($this->pagesize);
-		$returndata['data'] = $this->Admins->paginate($this->pagesize);
+	{
+		$request = \Config\Services::request();
+		$where = [];
+		$data = $request->getGet();
+
+		if(isset($data['search_Id']) && !empty($data['search_Id']))
+		{
+			$where['Id'] = $data['search_Id'];
+		}
+		if(isset($data['search_Username']) && !empty($data['search_Username']))
+		{
+			$where['Username'] = $data['search_Username'];
+		}
+		if(isset($data['search_Email']) && !empty($data['search_Email']))
+		{
+			$where['Email'] = $data['search_Email'];
+		}
+		if(isset($data['search_Password']) && !empty($data['search_Password']))
+		{
+			$where['Password'] = $data['search_Password'];
+		}
+		if(isset($data['search_Auth']) && !empty($data['search_Auth']))
+		{
+			$where['Auth'] = $data['search_Auth'];
+		}
+		if(isset($data['search_Status']) && !empty($data['search_Status']))
+		{
+			$where['Status'] = $data['search_Status'];
+		}
+
+		$returndata['data'] = $this->Admins->where($where)->orderBy('Id', 'desc')->paginate($this->pagesize);
 		$returndata['pager'] = $this->Admins->pager;
+
 		return view('admin/Admin', $returndata);
 	}
 	
