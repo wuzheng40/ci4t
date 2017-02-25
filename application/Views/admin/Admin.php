@@ -26,8 +26,7 @@
 				            Username : 'empty',
 				            Email : 'empty',
 				            Password : 'empty',
-				            Auth : 'empty',
-				            Status : 'empty'
+				            Auth : 'empty'
 				        },
 			        	onSuccess : function(event, fields){
 							_formdlg.modal('duration',0).modal('hide');
@@ -50,7 +49,7 @@
 											'<td id="Email_' + data.id + '">' + $('#Email').val() + '</td>' + 
 											'<td id="Password_' + data.id + '">' + $('#Password').val() + '</td>' +
 											'<td id="Auth_' + data.id + '">' + $('#Auth').val() + '</td>' +
-											'<td id="Status_' + data.id + '">' + $('#Status').val() + '</td>' +
+											'<td id="Status_' + data.id + '">' + Number($('#Status').prop('checked')) + '</td>' +
 											'<td>' +
 												'<div class=" ui tiny buttons">' +
 													'<button class="ui primary button" data-id="' + data.id + '" data-method="update">修改</button>' +
@@ -75,7 +74,7 @@
 										$('#Email_'+ id).html($('#Email').val());
 										$('#Password_'+ id).html($('#Password').val());
 										$('#Auth_'+ id).html($('#Auth').val());
-										$('#Status_'+ id).html($('#Status').val());
+										$('#Status_'+ id).html(Number($('#Status').prop('checked')));
 
 										_messagedlg.find('div').html('<i class="checkmark icon green"></i>成功');
 									}else{
@@ -117,7 +116,7 @@
 									$('#Email').val(data.data.Email);
 									$('#Password').val(data.data.Password);
 									$('#Auth').val(data.data.Auth);
-									$('#Status').val(data.data.Status);
+									$('#Status').prop('checked', Boolean(Number(data.data.Status)));
 								}else{
 									_messagedlg.modal('show').find('div').html('<i class="remove icon blue"></i>获取信息失败');
 								}
@@ -162,25 +161,40 @@
 				    	<tfoot class="full-width">
 				    		<tr>
 						      	<th>
-						      		<form class="ui tiny form" id="searchform" action="<?php echo current_url();?>" method="get">
+						      		<form class="ui form" id="searchform" action="<?php echo current_url();?>" method="get">
 						      			<div class="fields">
 								      		<div class="three wide field">
+								      			<label>Id</label>
 								                <input type="text" name="search_Id" placeholder="Id">
 								            </div>
 								      		<div class="three wide field">
+								      			<label>Username</label>
 								                <input type="text" name="search_Username" placeholder="Username">
 								            </div>
 								      		<div class="three wide field">
-								                <input type="text" name="search_Email" placeholder="Email">
+								      			<label>Email</label>
+								                <input type="email" name="search_Email" placeholder="Email">
 								            </div>
 								      		<div class="three wide field">
+								      			<label>Password</label>
 								                <input type="text" name="search_Password" placeholder="Password">
 								            </div>
 								      		<div class="three wide field">
-								                <input type="text" name="search_Auth" placeholder="Auth">
+								      			<label>Auth</label>
+								                <select class="ui tiny dropdown" name="search_Auth"> 
+											      	<option value="">All</option>
+											      	<option value="Admin">Admin</option>
+											      	<option value="PowerUser">PowerUser</option>
+											      	<option value="Guest">Guest</option>
+											    </select>
 								            </div>
 								      		<div class="three wide field">
-								                <input type="text" name="search_Status" placeholder="Status">
+								      			<label>Status</label>
+								                <select class="ui tiny dropdown" name="search_Status"> 
+											      	<option value="">All</option>
+											      	<option value="1">1</option>
+											      	<option value="0">0</option>
+											    </select>
 								            </div>
 						            	</div>
 						            </form>
@@ -269,7 +283,7 @@
 		            </div>
 		            <div class="field">
 		              	<label>Email</label>
-		                <input type="text" name="Email" id="Email" placeholder="Email">
+		                <input type="email" name="Email" id="Email" placeholder="Email">
 		            </div>
 		            <div class="field">
 		              	<label>Password</label>
@@ -279,9 +293,8 @@
 		              	<label>Auth</label>
 		                <input type="text" name="Auth" id="Auth" placeholder="Auth">
 		            </div>
-		            <div class="field">
-		              	<label>Status</label>
-		                <input type="text" name="Status" id="Status" placeholder="Status">
+		            <div class="ui checkbox">
+		              	<input type="checkbox" name="Status" id="Status"><label>Status</label>
 		            </div>
 					<input type="hidden" name="Id" id="Id" value="0">
 	          		<div class="ui error message"></div>
