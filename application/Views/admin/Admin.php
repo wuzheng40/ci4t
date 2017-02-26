@@ -5,7 +5,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	    <meta name="Keywords" content="">
 	    <meta name="Description" content="">
-	    <title>Admin</title>
+	    <title><?= $header?></title>
 		<?= view('admin/Asset'); ?>
 		<script>
 			var _messagedlg, _formdlg, _form, _table, _searchform;
@@ -151,7 +151,7 @@
 		</script>
 	</head>
 	<body style="margin:0; padding:0">
-		<?= view('admin/Menu'); ?>
+		<?= view('admin/Menu', ['header' => $header]); ?>
 		
 		<!-- Main -->
 		<div class="wrapper" ng-view="" style="padding: 60px 0 0;">

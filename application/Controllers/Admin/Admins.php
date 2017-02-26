@@ -7,9 +7,8 @@ class Admins extends \CodeIgniter\Controller
 {	
 	/**
 	 * pagesize is paginate size
-	 * Admins is model data
 	 */
-	private $pagesize = 5;
+	private $pagesize = 30;
 	private $Admins;
 
 	public function __construct()
@@ -18,16 +17,12 @@ class Admins extends \CodeIgniter\Controller
 	 	$this->Admins = new AdminsModel();
 	}
 
-	public function index()
-	{
-		return 'index';
-	}
-
 	/**
 	 * List all
 	 */
 	public function listAll()
 	{
+		$returndata['header'] = 'Admins';
 		$request = \Config\Services::request();
 		$where = [];
 		$data = $request->getGet();
@@ -112,6 +107,10 @@ class Admins extends \CodeIgniter\Controller
 		echo json_encode($return);
 	}
 	
+	/**
+	 * Update item
+	 * @var string
+	 */
 	public function update($id)
 	{		
 		$request = \Config\Services::request();
