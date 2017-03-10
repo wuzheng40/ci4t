@@ -8,6 +8,7 @@
 	    <title><?= $header?></title>
 		<?= view('admin/Asset'); ?>
 		<script>
+			//定义控件
 			var _messagedlg, _formdlg, _form, _table, _searchform;
 
 			$().ready(function(){
@@ -153,7 +154,7 @@
 	<body style="margin:0; padding:0">
 		<?= view('admin/Menu', ['header' => $header]); ?>
 		
-		<!-- Main -->
+		<!-- 主界面 -->
 		<div class="wrapper" ng-view="" style="padding: 60px 0 0;">
 			<section class="ui grid user-index" style="margin: 0; padding: 12px 20px;">
 			    <div class="ui twelve wide column">
@@ -161,6 +162,7 @@
 				    	<tfoot class="full-width">
 				    		<tr>
 						      	<th>
+						      		<!-- 搜索 -->
 						      		<form class="ui form" id="searchform" action="<?php echo current_url();?>" method="get">
 						      			<div class="fields">
 								      		<div class="three wide field">
@@ -198,6 +200,7 @@
 								            </div>
 						            	</div>
 						            </form>
+						      		<!-- 搜索 -->
 						      	</th>
 						    </tr>
 						    <tr>
@@ -227,6 +230,7 @@
 						  	</tr>
 					  	</thead>
 						<tbody>
+						    <!-- 列表 -->
 							<?php foreach ($data as $d):?>
 						    <tr id="SelectData_<?= $d->Id ?>">
 						      	<td id="Id_<?= $d->Id ?>"><?= $d->Id ?></td>
@@ -243,12 +247,14 @@
 						        </td>
 						    </tr>
         					<?php endforeach;?>
+						    <!-- 列表 -->
 						</tbody>
 						<tfoot>
 						    <tr>
 							    <th colspan="30">
-								    <?= $pager->links('default', 'admin_common') ?>				    
-								    </div>
+						    		<!-- 分页 -->
+								    <?= $pager->links('default', 'admin_common') ?>	
+						    		<!-- 分页 -->
 							    </th>
 						  	</tr>
 						</tfoot>
@@ -257,22 +263,20 @@
 			</section>
 		</div>
 
-		<!-- Model -->
+		<!-- 对话框 -->
+		<!-- 消息 -->
 		<div class="ui small test modal" id="messagedlg">
-		    <div class="content text-center">
-		    <!--
-        		<i class="remove icon red"></i>失败
-        		<i class="checkmark icon green"></i>成功
-        	-->
-        	</div>
+		    <div class="content text-center"></div>
 		</div>
 
+		<!-- 确认 -->
 		<div class="ui small test modal" id="deletedlg">
 		    <div class="header">删除</div>
 		    <div class="content"><p>确定要删除吗？</p></div>
 		    <div class="actions"><div class="ui negative button" name="no">否</div><div class="ui green right labeled icon button" name="yes">是<i class="checkmark icon"></i></div></div>
 		</div>
 
+		<!-- 内容 -->
 		<div class="ui small modal" id="coudialog">
 		    <div class="header">Admin</div>
 		    <div class="content">
@@ -304,6 +308,7 @@
 		    	<div class="ui negative button" name="no">取消</div>
 		    	<div class="ui green button" name="yes">保存</div>
 		    </div>
-		  </div>
+		</div>
+		<!-- 对话框 -->
 	</body>
 </html>
