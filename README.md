@@ -1,6 +1,6 @@
 # An Admin Temple base on Codeigniter 4
 
-【![Build Status](https://travis-ci.org/wuzheng40/ci4t.svg)](https://travis-ci.org/wuzheng40/ci4t)
+[![Build Status](https://travis-ci.org/wuzheng40/ci4t.svg)](https://travis-ci.org/wuzheng40/ci4t)
 
 # Semantic UI
 
