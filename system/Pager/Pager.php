@@ -308,8 +308,8 @@ class Pager implements PagerInterface
 		$this->ensureGroup($group);
 
 		$uri = $this->groups[$group]['uri'];
-
-		$uri->addQuery('page='.$page);
+		
+		$uri->addQuery('page', $page);
 
 		return $returnObject === true
 			? $uri
